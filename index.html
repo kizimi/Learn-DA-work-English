@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DA English — Data Analyst 英语口语学习</title>
+  <style>
+    :root {
+      --primary: #4F6EF7;
+      --primary-light: #EEF1FE;
+      --accent: #F97316;
+      --accent-light: #FFF4ED;
+      --green: #22C55E;
+      --green-light: #F0FDF4;
+      --purple: #A855F7;
+      --purple-light: #FAF5FF;
+      --red: #EF4444;
+      --red-light: #FEF2F2;
+      --text: #1A1A2E;
+      --text-secondary: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #4F6EF7 0%, #7C3AED 100%);
+      color: white; padding: 40px 24px 32px; text-align: center;
+    }
+    header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    header p { margin-top: 8px; opacity: 0.85; font-size: 15px; }
+    .header-tags { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .header-tag { background: rgba(255,255,255,0.2); border-radius: 99px; padding: 4px 14px; font-size: 13px; }
+
+    /* Nav */
+    nav {
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 0 16px; position: sticky; top: 0; z-index: 100;
+      overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-inner { display: inline-flex; }
+    .nav-btn {
+      background: none; border: none; padding: 14px 18px; font-size: 14px;
+      font-weight: 500; color: var(--text-secondary); cursor: pointer;
+      border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-btn:hover { color: var(--primary); }
+    .nav-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-badge { display: inline-block; background: var(--primary-light); color: var(--primary); border-radius: 99px; padding: 1px 7px; font-size: 11px; margin-left: 5px; }
+    .nav-btn.game-btn { color: var(--accent); }
+    .nav-btn.game-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .nav-badge.game-badge { background: var(--accent-light); color: var(--accent); }
+
+    /* Main */
+    main { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .section-header { margin-bottom: 20px; }
+    .section-header h2 { font-size: 20px; font-weight: 700; }
+    .section-header p { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+    .section-tag { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+
+    /* Phrase Cards */
+    .cards { display: flex; flex-direction: column; gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: box-shadow 0.2s; }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .card-scenario { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; margin-bottom: 12px; }
+    .phrase { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.5; font-family: 'Georgia', serif; }
+    .phrase mark { background: var(--primary-light); color: var(--primary); padding: 1px 4px; border-radius: 4px; font-style: italic; }
+    .cn-meaning { margin-top: 8px; font-size: 14px; color: var(--text-secondary); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+    .example-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); margin-bottom: 6px; }
+    .example-en { font-size: 14px; color: var(--text); line-height: 1.6; }
+    .example-cn { font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+    .tips { margin-top: 12px; background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #92400E; }
+    .tips strong { color: var(--accent); }
+    .progress-bar { background: var(--border); border-radius: 99px; height: 4px; margin-bottom: 20px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--purple)); border-radius: 99px; }
+
+    /* Theme colors */
+    .theme-blue .card-scenario { background: var(--primary-light); color: var(--primary); }
+    .theme-blue .section-tag { background: var(--primary-light); color: var(--primary); }
+    .theme-green .card-scenario { background: var(--green-light); color: #16A34A; }
+    .theme-green .section-tag { background: var(--green-light); color: #16A34A; }
+    .theme-orange .card-scenario { background: var(--accent-light); color: var(--accent); }
+    .theme-orange .section-tag { background: var(--accent-light); color: var(--accent); }
+    .theme-purple .card-scenario { background: var(--purple-light); color: var(--purple); }
+    .theme-purple .section-tag { background: var(--purple-light); color: var(--purple); }
+
+    /* ══ GAME STYLES ══ */
+    #game { max-width: 600px; margin: 0 auto; }
+
+    .game-start { text-align: center; padding: 40px 20px; }
+    .game-start .big-emoji { font-size: 64px; margin-bottom: 16px; }
+    .game-start h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .game-start p { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+
+    .streak-box {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--accent-light); border: 1px solid #FED7AA;
+      border-radius: var(--radius); padding: 14px 24px; margin-bottom: 28px;
+    }
+    .streak-number { font-size: 36px; font-weight: 800; color: var(--accent); }
+    .streak-label { text-align: left; font-size: 13px; color: #92400E; line-height: 1.4; }
+    .streak-label strong { display: block; font-size: 15px; }
+
+    .module-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 28px; }
+    .module-pill { background: var(--primary-light); color: var(--primary); border-radius: 99px; padding: 5px 14px; font-size: 13px; font-weight: 500; }
+
+    .btn { display: inline-block; padding: 14px 32px; border-radius: 99px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: #3B55E0; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(79,110,247,0.4); }
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-accent:hover { background: #EA6C0A; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,0.4); }
+    .btn-outline { background: white; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-sm { padding: 10px 22px; font-size: 14px; }
+
+    /* Question screen */
+    .game-question { display: none; }
+    .q-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .q-progress-text { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+    .q-score { font-size: 13px; font-weight: 700; color: var(--green); }
+    .q-progress-bar { background: var(--border); border-radius: 99px; height: 6px; margin-bottom: 24px; overflow: hidden; }
+    .q-progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--purple)); border-radius: 99px; transition: width 0.4s; }
+
+    .q-type-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 99px; margin-bottom: 12px; }
+    .type-scenario .q-type-badge { background: var(--primary-light); color: var(--primary); }
+    .type-blank .q-type-badge { background: var(--purple-light); color: var(--purple); }
+    .type-match .q-type-badge { background: var(--green-light); color: #16A34A; }
+
+    .q-prompt { font-size: 16px; font-weight: 600; line-height: 1.6; margin-bottom: 6px; }
+    .q-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 22px; }
+
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn {
+      width: 100%; text-align: left; padding: 14px 18px;
+      background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-size: 14px; font-family: inherit; color: var(--text);
+      cursor: pointer; transition: all 0.15s; line-height: 1.5;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+    .option-btn.correct { border-color: var(--green); background: var(--green-light); color: #14532D; font-weight: 600; }
+    .option-btn.wrong { border-color: var(--red); background: var(--red-light); color: #7F1D1D; }
+    .option-btn:disabled { cursor: default; }
+
+    .feedback-box {
+      display: none; margin-top: 16px; border-radius: var(--radius);
+      padding: 16px; animation: slideUp 0.2s ease;
+    }
+    .feedback-box.correct { background: var(--green-light); border: 1px solid #BBF7D0; }
+    .feedback-box.wrong { background: var(--red-light); border: 1px solid #FECACA; }
+    .feedback-icon { font-size: 20px; margin-bottom: 6px; }
+    .feedback-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .feedback-box.correct .feedback-title { color: #14532D; }
+    .feedback-box.wrong .feedback-title { color: #7F1D1D; }
+    .feedback-explain { font-size: 13px; line-height: 1.6; }
+    .feedback-box.correct .feedback-explain { color: #166534; }
+    .feedback-box.wrong .feedback-explain { color: #991B1B; }
+    .feedback-correct-ans { margin-top: 8px; font-size: 13px; font-weight: 600; color: #14532D; font-style: italic; }
+
+    .next-btn-wrap { margin-top: 20px; text-align: right; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Result screen */
+    .game-result { display: none; text-align: center; padding: 40px 20px; }
+    .score-ring {
+      width: 120px; height: 120px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin: 0 auto 24px; font-weight: 800;
+    }
+    .score-ring .score-num { font-size: 40px; line-height: 1; }
+    .score-ring .score-denom { font-size: 16px; opacity: 0.7; }
+    .score-5 { background: #FEF9C3; border: 4px solid #EAB308; color: #713F12; }
+    .score-4 { background: var(--green-light); border: 4px solid var(--green); color: #14532D; }
+    .score-3 { background: var(--primary-light); border: 4px solid var(--primary); color: #1E3A8A; }
+    .score-low { background: var(--red-light); border: 4px solid var(--red); color: #7F1D1D; }
+
+    .result-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .result-sub { color: var(--text-secondary); font-size: 15px; margin-bottom: 32px; }
+    .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .answer-review { text-align: left; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px; }
+    .answer-review h3 { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .review-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .review-item:last-child { border-bottom: none; }
+    .review-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .review-q { color: var(--text-secondary); line-height: 1.4; }
+    .review-a { font-weight: 600; color: var(--text); margin-top: 3px; font-style: italic; }
+
+    .hidden { display: none !important; }
+
+    /* ── Mistake Book ── */
+    .mistake-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .mistake-header h2 { font-size: 20px; font-weight: 700; }
+    .mistake-empty { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+    .mistake-empty .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .mistake-empty p { font-size: 15px; }
+    .mistake-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; transition: opacity 0.3s; }
+    .mistake-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .mistake-badge-wrap { display: flex; gap: 8px; align-items: center; }
+    .mistake-count { font-size: 12px; color: var(--red); font-weight: 600; background: var(--red-light); padding: 2px 8px; border-radius: 99px; }
+    .mistake-date { font-size: 11px; color: var(--text-secondary); }
+    .mistake-prompt { font-size: 15px; font-weight: 600; line-height: 1.5; margin-bottom: 12px; }
+    .mistake-row { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; margin-bottom: 5px; line-height: 1.5; }
+    .mistake-row .label { font-weight: 700; flex-shrink: 0; }
+    .mistake-wrong { color: #991B1B; text-decoration: line-through; opacity: 0.8; }
+    .mistake-right { color: #14532D; font-weight: 600; font-style: italic; }
+    .mistake-tip { margin-top: 10px; font-size: 12px; color: var(--text-secondary); background: var(--bg); border-radius: 6px; padding: 8px 10px; line-height: 1.5; }
+    .mistake-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .btn-mastered { background: var(--green-light); color: #14532D; border: 1px solid #BBF7D0; border-radius: 99px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .btn-mastered:hover { background: #BBF7D0; }
+    .btn-remove { background: none; border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary); font-size: 13px; cursor: pointer; padding: 6px 12px; font-family: inherit; }
+    .btn-remove:hover { border-color: var(--red); color: var(--red); }
+    .clear-all-btn { background: none; border: 1.5px solid var(--border); border-radius: 99px; padding: 7px 16px; font-size: 13px; color: var(--text-secondary); cursor: pointer; font-family: inherit; }
+    .clear-all-btn:hover { border-color: var(--red); color: var(--red); }
+    .nav-badge.mistake-badge { background: var(--red-light); color: var(--red); }
+
+    footer { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 13px; border-top: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 22px; }
+      .phrase { font-size: 15px; }
+      .result-actions { flex-direction: column; align-items: center; }
+      .btn { padding: 12px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>DA English 📊</h1>
+  <p>Data Analyst 国际团队英语口语手册</p>
+  <div class="header-tags">
+    <span class="header-tag">🗣️ 日常沟通</span>
+    <span class="header-tag">📈 Presentation</span>
+    <span class="header-tag">🎮 每日闯关</span>
+    <span class="header-tag">中英双语</span>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn game-btn" onclick="showSection('game',this)">🎮 每日闯关 <span class="nav-badge game-badge">NEW</span></button>
+    <button class="nav-btn" onclick="showSection('mistakes',this)">📒 错题本 <span class="nav-badge mistake-badge" id="mistake-badge">0</span></button>
+    <button class="nav-btn active" onclick="showSection('clarify',this)">澄清需求 <span class="nav-badge">8</span></button>
+    <button class="nav-btn" onclick="showSection('describe',this)">描述数据 <span class="nav-badge">8</span></button>
+    <button class="nav-btn" onclick="showSection('collab',this)">跨团队协作 <span class="nav-badge">8</span></button>
+    <button class="nav-btn" onclick="showSection('explain',this)">解释异常 <span class="nav-badge">8</span></button>
+    <button class="nav-btn" onclick="showSection('present',this)">会议汇报 <span class="nav-badge">8</span></button>
+    <button class="nav-btn" onclick="showSection('decide',this)">推动决策 <span class="nav-badge">8</span></button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══ GAME ══ -->
+<div id="game" class="section">
+
+  <!-- Start Screen -->
+  <div class="game-start" id="game-start">
+    <div class="big-emoji">🎮</div>
+    <h2>每日闯关</h2>
+    <p>每天 5 题，3 种题型混合练习<br>答完还想练？随时再来 5 题！</p>
+    <div class="streak-box">
+      <div class="streak-number" id="streak-num">0</div>
+      <div class="streak-label"><strong>🔥 连续打卡</strong>天数记录</div>
+    </div>
+    <div class="module-pills">
+      <span class="module-pill">📌 澄清需求</span>
+      <span class="module-pill">📈 描述数据</span>
+      <span class="module-pill">🤝 跨团队协作</span>
+      <span class="module-pill">🔍 解释异常</span>
+      <span class="module-pill">🎤 会议汇报</span>
+      <span class="module-pill">💡 推动决策</span>
+    </div>
+    <button class="btn btn-accent" onclick="startGame()">开始今日挑战 →</button>
+  </div>
+
+  <!-- Question Screen -->
+  <div class="game-question" id="game-question">
+    <div class="q-header">
+      <span class="q-progress-text" id="q-progress">第 1 题 / 5</span>
+      <span class="q-score" id="q-score-live">✓ 0</span>
+    </div>
+    <div class="q-progress-bar">
+      <div class="q-progress-fill" id="q-progress-fill" style="width:0%"></div>
+    </div>
+    <div id="q-type-wrap"><span class="q-type-badge" id="q-type-badge"></span></div>
+    <div class="q-prompt" id="q-prompt"></div>
+    <div class="q-sub" id="q-sub"></div>
+    <div class="options" id="q-options"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-icon" id="feedback-icon"></div>
+      <div class="feedback-title" id="feedback-title"></div>
+      <div class="feedback-explain" id="feedback-explain"></div>
+      <div class="feedback-correct-ans hidden" id="feedback-correct-ans"></div>
+    </div>
+    <div class="next-btn-wrap hidden" id="next-btn-wrap">
+      <button class="btn btn-primary btn-sm" onclick="nextQuestion()">下一题 →</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div class="game-result" id="game-result">
+    <div class="score-ring" id="score-ring">
+      <div class="score-num" id="result-score">0</div>
+      <div class="score-denom">/ 5</div>
+    </div>
+    <div class="result-title" id="result-title"></div>
+    <div class="result-sub" id="result-sub"></div>
+    <div class="result-actions">
+      <button class="btn btn-accent" onclick="playMore()">再来 5 题 🔁</button>
+      <button class="btn btn-outline" onclick="goLearn()">查看学习内容 📖</button>
+      <button class="btn btn-outline btn-sm" onclick="showStart()">返回首页</button>
+    </div>
+    <div class="answer-review" id="answer-review"></div>
+  </div>
+
+</div>
+
+<!-- ══ 模块 1: 澄清需求 ══ -->
+<div id="clarify" class="section active theme-blue">
+  <div class="section-header">
+    <span class="section-tag">模块 1 · 日常沟通</span>
+    <h2>澄清需求 Clarifying Requirements</h2>
+    <p>在取数、分析前，和 PM / 业务方对齐真实需求，避免做无用功</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:17%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">📌 对齐需求</div>
+      <div class="phrase">Before I pull the data, let me make sure I understand the ask.</div>
+      <div class="cn-meaning">在我取数之前，让我先确认一下需求。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Before I pull the data, let me make sure I understand the ask — are we looking at DAU by country, or overall?"</div>
+      <div class="example-cn">在我取数之前，让我先确认一下需求——我们是要看按国家分的 DAU，还是整体？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"pull the data" 是 DA 日常最常用的口语表达，比 "retrieve data" 更自然。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📌 确认目标</div>
+      <div class="phrase">Just to clarify, are you looking for <mark>X</mark> or <mark>Y</mark>?</div>
+      <div class="cn-meaning">确认一下，你是想要 X 还是 Y？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Just to clarify, are you looking for the conversion rate by channel, or the total conversion rate?"</div>
+      <div class="example-cn">确认一下，你是想要按渠道的转化率，还是整体转化率？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"Just to clarify" 非常礼貌，适合打断对方追问而不显得冒犯。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🎯 了解决策背景</div>
+      <div class="phrase">What's the main decision you're trying to make with this data?</div>
+      <div class="cn-meaning">你想用这些数据来支撑什么决策？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"What's the main decision you're trying to make with this data? That'll help me figure out the right cut."</div>
+      <div class="example-cn">你想用这些数据来支撑什么决策？这样我才能判断需要怎么切分数据。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"the right cut" 指对数据合适的切分维度，是 DA 圈很常用的说法。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📅 确认时间范围</div>
+      <div class="phrase">What timeframe are we looking at?</div>
+      <div class="cn-meaning">我们看的是哪个时间范围？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"What timeframe are we looking at — last 30 days, or since the feature launched?"</div>
+      <div class="example-cn">我们看哪个时间范围——过去 30 天，还是从功能上线以来？</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔍 了解成功标准</div>
+      <div class="phrase">What would a successful outcome look like for you?</div>
+      <div class="cn-meaning">对你来说，成功的结果是什么样的？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Before we dive in — what would a successful outcome look like for you? Are we trying to prove or disprove a hypothesis?"</div>
+      <div class="example-cn">在我们深入之前——对你来说成功的结果是什么？我们是要验证还是推翻某个假设？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>这句话特别适合在需求不明朗时开门见山地问，帮你避免分析方向跑偏。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔍 了解背景</div>
+      <div class="phrase">Can you walk me through the context a bit more?</div>
+      <div class="cn-meaning">能再多介绍一些背景吗？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Can you walk me through the context a bit more? I want to make sure I'm analyzing the right thing."</div>
+      <div class="example-cn">能再多介绍一些背景吗？我想确保我分析的是正确的方向。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📊 确认维度</div>
+      <div class="phrase">Should we segment this by <mark>[dimension]</mark>?</div>
+      <div class="cn-meaning">我们需要按某个维度来细分吗？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Should we segment this by user type, or look at the aggregate first?"</div>
+      <div class="example-cn">我们需要按用户类型细分吗，还是先看整体汇总？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"segment" 和 "aggregate" 是 DA 日常高频词，熟练使用会让你显得很专业。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">⏳ 确认优先级</div>
+      <div class="phrase">Is this time-sensitive, or do I have a few days to turn this around?</div>
+      <div class="cn-meaning">这件事紧急吗，还是我有几天时间来完成？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Is this time-sensitive, or do I have a few days to turn this around? I want to make sure I give you something solid."</div>
+      <div class="example-cn">这件事紧急吗，还是我有几天时间来完成？我想确保给你一个扎实的结果。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"turn this around" = 完成并交付某项工作，非常口语化。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 模块 2: 描述数据 ══ -->
+<div id="describe" class="section theme-green">
+  <div class="section-header">
+    <span class="section-tag">模块 2 · 日常沟通</span>
+    <h2>描述数据与趋势 Describing Data & Trends</h2>
+    <p>向同事、stakeholder 描述你在数据里看到的内容</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">📈 描述趋势</div>
+      <div class="phrase">The data shows a <mark>downward / upward</mark> trend over the past <mark>[period]</mark>.</div>
+      <div class="cn-meaning">数据显示在过去某段时间里呈下降/上升趋势。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The data shows a downward trend over the past three weeks, which started right after the new onboarding flow launched."</div>
+      <div class="example-cn">数据显示过去三周呈下降趋势，恰好从新的引导流程上线后开始。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">⚡ 描述峰值</div>
+      <div class="phrase">There's a significant spike in <mark>[metric]</mark> around <mark>[time]</mark>.</div>
+      <div class="cn-meaning">某指标在某时间前后出现了明显的峰值。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"There's a significant spike in session duration around March 15th — I'm still investigating what drove it."</div>
+      <div class="example-cn">3 月 15 日前后，用户会话时长出现了明显峰值，我还在排查原因。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"spike" 表示突然的大幅上涨，"dip" 表示突然的下跌，两个词都很高频。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📊 同比环比</div>
+      <div class="phrase">We're seeing a <mark>[X%]</mark> increase / decrease compared to <mark>[last week / last quarter]</mark>.</div>
+      <div class="cn-meaning">与上周/上季度相比，增加/减少了 X%。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"We're seeing a 12% decrease in retention compared to last quarter — that's outside our normal variance."</div>
+      <div class="example-cn">与上季度相比，留存率下降了 12%——这超出了我们正常的波动范围。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📉 描述平稳</div>
+      <div class="phrase"><mark>[Metric]</mark> has been relatively flat / stable over the past <mark>[period]</mark>.</div>
+      <div class="cn-meaning">某指标在过去某段时间里一直相对平稳。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Revenue has been relatively flat over the past two months, despite the increase in traffic."</div>
+      <div class="example-cn">尽管流量增加了，过去两个月收入一直相对平稳。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🎯 描述集中分布</div>
+      <div class="phrase">Usage is heavily skewed toward <mark>[segment]</mark>.</div>
+      <div class="cn-meaning">使用量明显集中在某个细分群体。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Usage is heavily skewed toward power users — the top 10% of users account for 60% of all activity."</div>
+      <div class="example-cn">使用量明显集中在核心用户群——前 10% 的用户贡献了 60% 的活跃行为。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"skewed" 表示数据分布偏斜，多用它可以让表达更精准。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔗 描述相关性</div>
+      <div class="phrase">There seems to be a correlation between <mark>X</mark> and <mark>Y</mark>.</div>
+      <div class="cn-meaning">X 和 Y 之间似乎存在相关性。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"There seems to be a correlation between email open rate and next-day retention, but we'd need more data to confirm."</div>
+      <div class="example-cn">邮件打开率和次日留存率之间似乎存在相关性，但我们需要更多数据来确认。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>注意区分 correlation（相关性）和 causation（因果关系）——向非技术人员解释时这个区分非常重要。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔢 描述比例</div>
+      <div class="phrase">Roughly <mark>[X]</mark> in <mark>[Y]</mark> users <mark>[behavior]</mark>.</div>
+      <div class="cn-meaning">大约每 Y 个用户中有 X 个会有某行为。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Roughly 1 in 5 users completes the onboarding flow — so there's a lot of room to improve."</div>
+      <div class="example-cn">大约每 5 个用户中只有 1 个完成了引导流程——所以还有很大的提升空间。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>把 20% 说成 "1 in 5" 让非技术的 stakeholder 更容易感知数字含义。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📊 描述停滞</div>
+      <div class="phrase"><mark>[Metric]</mark> has plateaued over the last <mark>[period]</mark>.</div>
+      <div class="cn-meaning">某指标在过去某段时间趋于停滞。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Growth has plateaued over the last six weeks — we're not declining, but we're also not making progress."</div>
+      <div class="example-cn">增长在过去六周趋于停滞——没有下降，但也没有进展。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 模块 3: 跨团队协作 ══ -->
+<div id="collab" class="section theme-orange">
+  <div class="section-header">
+    <span class="section-tag">模块 3 · 日常沟通</span>
+    <h2>跨团队协作 Cross-team Collaboration</h2>
+    <p>和 Engineering、Product、Marketing 等团队日常沟通时的高频表达</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">🔭 表达数据视角</div>
+      <div class="phrase">From a data perspective, what we're seeing is <mark>[observation]</mark>.</div>
+      <div class="cn-meaning">从数据角度来看，我们观察到的是……</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"From a data perspective, what we're seeing is a drop in activation after step 3 of the onboarding flow."</div>
+      <div class="example-cn">从数据角度来看，我们观察到引导流程第 3 步之后激活率出现了下降。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>用 "From a data perspective" 开头，清楚表明你在陈述数据事实，而不是个人观点。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🛠️ 说明埋点需求</div>
+      <div class="phrase">We'd need to instrument this event first before we can measure it.</div>
+      <div class="cn-meaning">我们需要先埋点，才能对这个事件进行衡量。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"We'd need to instrument this event first before we can measure it — can we get this into the next sprint?"</div>
+      <div class="example-cn">我们需要先对这个事件埋点才能衡量它——能把这个排进下个 sprint 吗？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"instrument" 作动词意为"埋点/增加监测"，是 DA 和 Engineering 沟通时的专业说法。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🤝 拉人协作</div>
+      <div class="phrase">Let me loop in <mark>[person / team]</mark> since this touches their area.</div>
+      <div class="cn-meaning">这涉及到他们的领域，让我把某人/团队拉进来。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Let me loop in the marketing team since this touches their campaign data — they might have context we're missing."</div>
+      <div class="example-cn">让我把市场团队拉进来，因为这涉及他们的营销数据——他们可能有我们缺少的背景信息。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"loop in someone" = 把某人加入沟通，比 "add someone" 更口语自然。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📤 发送分析结果</div>
+      <div class="phrase">I'll send over the analysis once I have the numbers ready.</div>
+      <div class="cn-meaning">数字准备好后我会把分析发过去。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"I'll send over the analysis once I have the numbers ready — probably by end of day tomorrow."</div>
+      <div class="example-cn">数字准备好后我会把分析发过去——大概明天下班前。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🗓️ 提议同步</div>
+      <div class="phrase">Can we get on a quick call to sync on this?</div>
+      <div class="cn-meaning">我们能快速通话同步一下吗？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The data is showing something unexpected — can we get on a quick call to sync on this before I go deeper?"</div>
+      <div class="example-cn">数据显示了一些意外情况——在我深入分析之前，我们能快速通话同步一下吗？</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"sync" 作动词在职场英语中非常常见，表示"同步信息/对齐"。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🚨 预警相关团队</div>
+      <div class="phrase">This might be worth flagging to <mark>[team]</mark>.</div>
+      <div class="cn-meaning">这可能值得向某团队反映一下。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"This might be worth flagging to the product team — the drop in engagement aligns with the new feature rollout."</div>
+      <div class="example-cn">这可能值得向产品团队反映——参与度的下降与新功能的推出时间吻合。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"flag" 作动词表示"标记、提醒注意"，在 Slack 消息、邮件里都很常用。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">❓ 向其他团队提问</div>
+      <div class="phrase">Do you have any context on why <mark>[metric / event]</mark> changed?</div>
+      <div class="cn-meaning">你知道为什么某指标/事件发生变化了吗？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Do you have any context on why the click-through rate dropped last Tuesday? Nothing in the data explains it."</div>
+      <div class="example-cn">你知道为什么上周二点击率下降了吗？数据里没有什么能解释的。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔄 对齐数据口径</div>
+      <div class="phrase">I want to make sure we're using the same definition of <mark>[metric]</mark>.</div>
+      <div class="cn-meaning">我想确认我们对某指标用的是同一个定义。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Before we compare numbers, I want to make sure we're using the same definition of 'active user' — our teams sometimes track it differently."</div>
+      <div class="example-cn">在我们对比数字之前，我想确认我们对"活跃用户"用的是同一个定义——我们团队有时候统计方式不同。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>这句话能帮你避免跨团队数据口径不一致导致的误解。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 模块 4: 解释异常 ══ -->
+<div id="explain" class="section theme-purple">
+  <div class="section-header">
+    <span class="section-tag">模块 4 · 日常沟通</span>
+    <h2>解释异常 & 回应质疑 Handling Questions & Anomalies</h2>
+    <p>被追问"为什么数据长这样"时，自信、专业地回应</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">🔎 归因表达</div>
+      <div class="phrase">This could be attributed to <mark>[cause]</mark>.</div>
+      <div class="cn-meaning">这可能是由某原因造成的。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The drop in DAU this week could be attributed to the holiday — we typically see a 15–20% dip during long weekends."</div>
+      <div class="example-cn">本周 DAU 的下降可能是由假期造成的——长周末期间我们通常会看到 15-20% 的下跌。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"could be attributed to" 比 "because of" 更严谨，暗示这是推测而非确定结论。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">⚠️ 说明数据局限</div>
+      <div class="phrase">One caveat here is that <mark>[limitation]</mark>.</div>
+      <div class="cn-meaning">需要注意的是……（数据有一个局限）</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"One caveat here is that the sample size is relatively small — we only have data from 200 users, so I'd treat this directionally."</div>
+      <div class="example-cn">需要注意的是样本量相对较小——我们只有 200 个用户的数据，所以这个结果只能作为方向性参考。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"treat this directionally" = 当方向性参考，而不是精确结论，是 DA 高频用语。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🐛 数据质量问题</div>
+      <div class="phrase">This might be a data quality issue — let me double-check before drawing any conclusions.</div>
+      <div class="cn-meaning">这可能是数据质量问题——在下结论之前让我再核查一下。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The numbers look off — this might be a data quality issue. Let me double-check the pipeline before drawing any conclusions."</div>
+      <div class="example-cn">数字看起来不对劲——这可能是数据质量问题。在下结论之前让我先检查一下数据管道。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🗓️ 关联外部事件</div>
+      <div class="phrase">The spike aligns with <mark>[event / campaign]</mark>, so it's likely not organic.</div>
+      <div class="cn-meaning">这个峰值与某事件/活动时间吻合，所以可能不是自然增长。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The spike aligns with the Black Friday campaign, so it's likely not organic growth — we should look at retention to see if these users stuck around."</div>
+      <div class="example-cn">峰值与黑色星期五活动时间吻合，所以可能不是自然增长——我们应该看看留存率，看这些用户是否留下来了。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🤔 表示谨慎</div>
+      <div class="phrase">I'd be cautious about drawing conclusions from this alone.</div>
+      <div class="cn-meaning">仅凭这个数据下结论，我会比较谨慎。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"I'd be cautious about drawing conclusions from this alone — the trend is interesting, but we'd want to see it hold over a few more weeks."</div>
+      <div class="example-cn">仅凭这个数据下结论我会比较谨慎——这个趋势很有意思，但我们需要再观察几周看是否持续。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>这句话在保护你自己的同时，也展示了你严谨的分析习惯，stakeholder 会更信任你。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">❓ 接受质疑并跟进</div>
+      <div class="phrase">That's a good question — let me dig into that and get back to you.</div>
+      <div class="cn-meaning">这是个好问题——让我深入研究一下，再回复你。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"That's a good question — let me dig into that and get back to you by end of day. I want to make sure I give you an accurate answer."</div>
+      <div class="example-cn">这是个好问题——让我深入研究一下，今天下班前回复你。我想确保给你一个准确的答案。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📐 需要更多数据</div>
+      <div class="phrase">We'd need more data points to confirm this pattern.</div>
+      <div class="cn-meaning">我们需要更多数据点来确认这个规律。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"It looks promising, but we'd need more data points to confirm this pattern — right now it could just be noise."</div>
+      <div class="example-cn">看起来很有希望，但我们需要更多数据点来确认这个规律——现在这个信号可能只是噪音。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"noise" 在数据语境中指无意义的随机波动，区别于真实的 "signal"（信号）。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📅 说明特殊时期</div>
+      <div class="phrase">It's worth noting that this period includes <mark>[holiday / event]</mark>.</div>
+      <div class="cn-meaning">值得注意的是，这段时间包含了某假期/活动。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"It's worth noting that this period includes Chinese New Year, which significantly impacts user behavior in our key markets."</div>
+      <div class="example-cn">值得注意的是这段时间包含了春节，这对我们关键市场的用户行为有显著影响。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 模块 5: 会议汇报 ══ -->
+<div id="present" class="section theme-blue">
+  <div class="section-header">
+    <span class="section-tag">模块 5 · Presentation</span>
+    <h2>会议汇报 Presenting Findings</h2>
+    <p>在会议或汇报中清晰引导听众，让分析结果有说服力</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:83%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">🎬 开场引入</div>
+      <div class="phrase">Let me walk you through what we found.</div>
+      <div class="cn-meaning">让我带大家了解一下我们发现了什么。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Thanks for joining. Let me walk you through what we found — I'll keep it focused on the three key insights."</div>
+      <div class="example-cn">感谢大家参与。让我带大家了解一下我们发现了什么——我会聚焦在三个核心发现上。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>"walk you through" 是汇报中最自然的开场方式，比 "present to you" 更口语、更亲切。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">💡 突出核心结论</div>
+      <div class="phrase">The key takeaway here is <mark>[insight]</mark>.</div>
+      <div class="cn-meaning">这里最核心的结论是……</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The key takeaway here is that users who complete onboarding have 3x higher 30-day retention."</div>
+      <div class="example-cn">最核心的结论是：完成引导流程的用户 30 天留存率高出 3 倍。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>先说结论再展示数据，是让非技术 stakeholder 保持注意力的关键技巧。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔍 引导深入</div>
+      <div class="phrase">Let's do a quick deep dive into <mark>[topic]</mark>.</div>
+      <div class="cn-meaning">让我们快速深入看一下某个主题。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Let's do a quick deep dive into the retention numbers — there's something interesting happening in the Day 7 cohort."</div>
+      <div class="example-cn">让我们快速深入看一下留存数字——第 7 天的队列里有些有趣的情况。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📋 交代背景</div>
+      <div class="phrase">To give you some context, <mark>[background]</mark>.</div>
+      <div class="cn-meaning">为了给大家提供一些背景……</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"To give you some context, this analysis covers the three months following the product redesign in Q3."</div>
+      <div class="example-cn">为了给大家提供一些背景，这次分析覆盖了第三季度产品重新设计之后的三个月。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔄 切换话题</div>
+      <div class="phrase">Now let's shift to <mark>[next topic]</mark>.</div>
+      <div class="cn-meaning">现在我们来看下一个话题。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Now let's shift to the acquisition funnel — this is where I think the biggest opportunity lies."</div>
+      <div class="example-cn">现在我们来看获客漏斗——我认为最大的机会在这里。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">❓ 邀请提问</div>
+      <div class="phrase">Before I move on, does anyone have questions on this?</div>
+      <div class="cn-meaning">在我继续之前，有人对这部分有问题吗？</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Before I move on, does anyone have questions on this? I want to make sure we're aligned before getting into the recommendations."</div>
+      <div class="example-cn">在我继续之前，有人对这部分有问题吗？我希望在进入建议环节之前我们都已对齐。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📌 总结回顾</div>
+      <div class="phrase">To summarize, we looked at <mark>[X]</mark> and found that <mark>[Y]</mark>.</div>
+      <div class="cn-meaning">总结来说，我们分析了 X，发现了 Y。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"To summarize, we looked at user behavior across three segments and found that mobile users have significantly lower conversion."</div>
+      <div class="example-cn">总结来说，我们分析了三个用户群的行为，发现移动端用户的转化率明显偏低。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🚀 结尾行动号召</div>
+      <div class="phrase">I'd love to get everyone's thoughts on the next steps.</div>
+      <div class="cn-meaning">我很想听听大家对下一步的想法。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"That's what the data is telling us. I'd love to get everyone's thoughts on the next steps — especially from the product and engineering side."</div>
+      <div class="example-cn">这就是数据告诉我们的。我很想听听大家对下一步的想法——尤其是产品和工程方面的意见。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 模块 6: 推动决策 ══ -->
+<div id="decide" class="section theme-green">
+  <div class="section-header">
+    <span class="section-tag">模块 6 · Presentation</span>
+    <h2>推动决策 Driving Decisions with Data</h2>
+    <p>用数据支撑建议、影响 stakeholder 做出决策</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-scenario">💡 给出建议</div>
+      <div class="phrase">Based on the analysis, I'd recommend we <mark>[action]</mark>.</div>
+      <div class="cn-meaning">基于这次分析，我建议我们……</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Based on the analysis, I'd recommend we focus on improving the Day 3 retention experience — that's where we're losing the most users."</div>
+      <div class="example-cn">基于这次分析，我建议我们专注于改善第 3 天的留存体验——那是我们流失最多用户的地方。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>始终把建议和数据直接挂钩，让你的结论有据可查。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">✅ 数据支持决策</div>
+      <div class="phrase">The data supports moving forward with <mark>[initiative]</mark>.</div>
+      <div class="cn-meaning">数据支持推进某项举措。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The data supports moving forward with the A/B test on the checkout flow — we have enough traffic to get statistically significant results within two weeks."</div>
+      <div class="example-cn">数据支持推进结账流程的 A/B 测试——我们有足够的流量，两周内可以获得统计显著的结果。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🚨 指出需关注的风险</div>
+      <div class="phrase">The data suggests we should keep a close eye on <mark>[metric]</mark>.</div>
+      <div class="cn-meaning">数据提示我们应该密切关注某指标。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"The data suggests we should keep a close eye on churn rate over the next 30 days — the early signals aren't great."</div>
+      <div class="example-cn">数据提示我们应该在未来 30 天密切关注流失率——早期信号并不乐观。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🤔 传达不确定性</div>
+      <div class="phrase">The data is mixed on this — there are signals pointing in both directions.</div>
+      <div class="cn-meaning">数据在这个问题上并不明确——有指向两个方向的信号。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"Honestly, the data is mixed on this — engagement is up but revenue is flat. I'd suggest we run an experiment before committing to a direction."</div>
+      <div class="example-cn">老实说，数据在这个问题上并不明确——参与度上升了但收入持平。我建议我们先做个实验再确定方向。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>诚实地传达数据的不确定性，比强行给出结论更能建立 stakeholder 的信任。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">📊 量化影响</div>
+      <div class="phrase">If we can improve <mark>[metric]</mark> by <mark>[X%]</mark>, that translates to <mark>[business impact]</mark>.</div>
+      <div class="cn-meaning">如果我们能将某指标提升 X%，这将转化为某商业影响。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"If we can improve Day-7 retention by just 5%, that translates to roughly $200K in additional annual revenue based on our current ARPU."</div>
+      <div class="example-cn">如果我们能将第 7 天留存率提升仅 5%，以我们目前的 ARPU 计算，这将转化为大约 20 万美元的额外年收入。</div>
+      <div class="tips"><strong>💡 小贴士：</strong>把数据转化成业务影响（revenue、cost、users），是让 stakeholder 真正重视分析结论的关键。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">⏳ 建议下一步</div>
+      <div class="phrase">My suggestion would be to <mark>[action]</mark> and revisit in <mark>[timeframe]</mark>.</div>
+      <div class="cn-meaning">我的建议是先做某事，然后在某时间后重新评估。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"My suggestion would be to run a small pilot with 10% of users and revisit in 2 weeks — that gives us real data without committing fully."</div>
+      <div class="example-cn">我的建议是先对 10% 的用户做一个小规模试验，两周后重新评估——这样可以获得真实数据，又不需要全面投入。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🎯 明确优先级</div>
+      <div class="phrase">If I had to prioritize one thing based on the data, it would be <mark>[X]</mark>.</div>
+      <div class="cn-meaning">如果让我基于数据只优先考虑一件事，那就是 X。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"If I had to prioritize one thing based on the data, it would be fixing the onboarding drop-off — everything else is secondary."</div>
+      <div class="example-cn">如果让我基于数据只优先考虑一件事，那就是修复引导流程的流失问题——其他一切都是次要的。</div>
+    </div>
+    <div class="card">
+      <div class="card-scenario">🔍 建议进一步分析</div>
+      <div class="phrase">I think it's worth doing a deeper investigation into <mark>[area]</mark> before we decide.</div>
+      <div class="cn-meaning">我认为在决策之前，值得对某个领域做更深入的调查。</div>
+      <hr class="divider">
+      <div class="example-label">场景示例</div>
+      <div class="example-en">"I think it's worth doing a deeper investigation into why the Canadian market is underperforming before we decide to increase spend there."</div>
+      <div class="example-cn">我认为在决定增加在加拿大市场的投入之前，值得深入调查一下为什么该市场表现不佳。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 错题本 ══ -->
+<div id="mistakes" class="section">
+  <div class="mistake-header">
+    <div>
+      <h2>📒 错题本</h2>
+      <p style="color:var(--text-secondary);font-size:14px;margin-top:4px">答错的题目会自动保存在这里，复习直到掌握</p>
+    </div>
+    <button class="clear-all-btn" onclick="clearAllMistakes()">清空全部</button>
+  </div>
+  <div id="mistakes-list"></div>
+</div>
+
+</main>
+<footer>DA English · 为中文母语 Data Analyst 打造的国际团队英语口语手册</footer>
+
+<script>
+// ── Mistake Storage ───────────────────────────
+function loadMistakes() {
+  try { return JSON.parse(localStorage.getItem('da_mistakes') || '[]'); }
+  catch { return []; }
+}
+
+function saveMistakes(list) {
+  try { localStorage.setItem('da_mistakes', JSON.stringify(list)); }
+  catch { /* storage unavailable in sandboxed preview */ }
+}
+
+function saveMistake(q, chosen) {
+  const list = loadMistakes();
+  const idx = list.findIndex(m => m.prompt === q.prompt);
+  if (idx >= 0) {
+    list[idx].count++;
+    list[idx].lastWrong = new Date().toDateString();
+    list[idx].chosen = chosen;
+  } else {
+    list.unshift({ prompt: q.prompt, correct: q.correct, chosen,
+      type: q.type, badge: q.badge, explain: q.explain,
+      count: 1, lastWrong: new Date().toDateString() });
+  }
+  saveMistakes(list);
+  updateMistakeBadge();
+}
+
+function markMastered(prompt) {
+  const list = loadMistakes().filter(m => m.prompt !== prompt);
+  saveMistakes(list);
+  renderMistakes();
+  updateMistakeBadge();
+}
+
+function clearAllMistakes() {
+  if (!confirm('确定清空全部错题吗？')) return;
+  saveMistakes([]);
+  renderMistakes();
+  updateMistakeBadge();
+}
+
+function updateMistakeBadge() {
+  const n = loadMistakes().length;
+  const badge = document.getElementById('mistake-badge');
+  if (badge) badge.textContent = n;
+}
+
+function renderMistakes() {
+  const list = loadMistakes();
+  const container = document.getElementById('mistakes-list');
+  if (!container) return;
+  if (list.length === 0) {
+    container.innerHTML = `<div class="mistake-empty">
+      <div class="empty-icon">🎉</div>
+      <p>没有错题！继续保持～<br>去「每日闯关」做题，答错的题会自动记录在这里。</p>
+    </div>`;
+    return;
+  }
+  container.innerHTML = list.map(m => `
+    <div class="mistake-card">
+      <div class="mistake-meta">
+        <div class="mistake-badge-wrap">
+          <span class="q-type-badge type-${m.type}" style="margin:0">${m.badge}</span>
+          <span class="mistake-count">错了 ${m.count} 次</span>
+        </div>
+        <span class="mistake-date">${m.lastWrong}</span>
+      </div>
+      <div class="mistake-prompt">${m.prompt}</div>
+      <div class="mistake-row"><span class="label">❌</span><span class="mistake-wrong">${m.chosen}</span></div>
+      <div class="mistake-row"><span class="label">✅</span><span class="mistake-right">${m.correct}</span></div>
+      <div class="mistake-tip">💡 ${m.explain}</div>
+      <div class="mistake-actions">
+        <button class="btn-mastered" onclick="markMastered(${JSON.stringify(m.prompt)})">✓ 已掌握，移除</button>
+        <button class="btn-remove" onclick="markMastered(${JSON.stringify(m.prompt)})">删除</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── Nav ──────────────────────────────────────
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'game') initGameScreen();
+  if (id === 'mistakes') renderMistakes();
+}
+
+function goLearn() {
+  const btn = document.querySelector('.nav-btn:not(.game-btn)');
+  showSection('clarify', btn);
+}
+
+// ── Question Bank (30 questions) ─────────────
+const Q = [
+  { type:'scenario', badge:'情景选词',
+    prompt:'PM 发来消息说"需要一些用户行为数据"，但没有具体说明。你应该先说什么？',
+    correct:'Before I pull the data, let me make sure I understand the ask.',
+    wrong:['The data shows an upward trend over the past month.','Let me walk you through what we found.',"Based on the analysis, I'd recommend we focus on retention."],
+    explain:'"pull the data" 是取数的地道说法，这句话帮你在动手前先对齐需求，避免做无用功。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'你注意到上周二点击率突然下降，想联系产品团队了解是否有他们知道的原因。你会说：',
+    correct:'Do you have any context on why the click-through rate dropped last Tuesday?',
+    wrong:["I'd be cautious about drawing conclusions from this alone.",'The data is mixed on this.','Let me loop in the marketing team.'],
+    explain:'这是跨团队提问的标准句型——礼貌地询问对方是否有背景信息，而不是直接下结论。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'周会上你要开始分享分析结果，最合适的开场白是：',
+    correct:'Let me walk you through what we found.',
+    wrong:['Should we segment this by user type?','This could be attributed to the holiday.','The data supports moving forward.'],
+    explain:'"walk you through" 是汇报中最自然的开场方式，引导听众跟着你的逻辑走。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'数据显示某指标突然暴涨，但时间恰好和一次大型营销活动重合，你怎么解释？',
+    correct:"The spike aligns with the campaign, so it's likely not organic.",
+    wrong:["We'd need more data points to confirm this pattern.","This might be a data quality issue — let me double-check.",'Usage is heavily skewed toward power users.'],
+    explain:'"not organic" 表示增长不是自然产生的，而是由外部活动驱动——这是非常精准的专业表达。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'工程团队问你能不能追踪某新功能的使用率，但目前还没有数据收集。你会说：',
+    correct:"We'd need to instrument this event first before we can measure it.",
+    wrong:["I'll send over the analysis once I have the numbers ready.",'Can we get on a quick call to sync on this?','Let me loop in the marketing team.'],
+    explain:'"instrument" 作动词意为"埋点"，这是 DA 和 Engineering 沟通时最专业的说法。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'你的分析结果有趣，但样本量很小，需要提醒大家谨慎解读，你会说：',
+    correct:'One caveat here is that the sample size is relatively small.',
+    wrong:['The key takeaway here is the retention improvement.',"Based on the analysis, I'd recommend we...",'The data supports moving forward with the A/B test.'],
+    explain:'"caveat" 是"注意事项/局限性"的专业说法，用它提醒别人数据局限，既专业又诚实。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'汇报快结束时，你想邀请大家讨论接下来的行动方向，你会说：',
+    correct:"I'd love to get everyone's thoughts on the next steps.",
+    wrong:['Before I pull the data, let me make sure I understand the ask.','What timeframe are we looking at?','Let me loop in the team on this.'],
+    explain:'这句话让汇报从单向输出变成双向讨论，是推动 stakeholder 参与决策的好方式。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'PM 问你某指标为什么下降，但你还没找到明确原因，你的回答是：',
+    correct:"That's a good question — let me dig into that and get back to you.",
+    wrong:['The data is mixed on this — signals point in both directions.','Usage is heavily skewed toward mobile users.','To summarize, we looked at three segments.'],
+    explain:'"dig into" 表示深入调查，"get back to you" 表示之后跟进——诚实且专业，不乱猜结论。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'你和另一个团队对比数据时，发现数字不一致，需要先确认口径：',
+    correct:"I want to make sure we're using the same definition of this metric.",
+    wrong:['The data shows a downward trend over the past month.','This might be worth flagging to the engineering team.',"My suggestion would be to revisit in two weeks."],
+    explain:'数据口径不一致是跨团队协作中最常见的问题，这句话帮你在对比数字前先对齐定义。' },
+  { type:'scenario', badge:'情景选词',
+    prompt:'汇报中你想从留存率话题切换到获客漏斗，你会说：',
+    correct:"Now let's shift to the acquisition funnel.",
+    wrong:["I'd be cautious about drawing conclusions from this alone.",'What would a successful outcome look like for you?',"We'd need to instrument this event first."],
+    explain:'"shift to" 是在汇报中自然切换话题的常用说法，比直接说 "next" 更流畅专业。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'Before I ___ the data, let me make sure I understand the ask.',
+    sub:'选出正确的词填入空白处',
+    correct:'pull', wrong:['read','check','view'],
+    explain:'"pull the data" 是取数最常用的口语说法，在 Slack 消息、会议中都很自然。' },
+  { type:'blank', badge:'句子填空',
+    prompt:"There's a significant ___ in session duration around March 15th.",
+    sub:'选出正确的词填入空白处',
+    correct:'spike', wrong:['change','jump','move'],
+    explain:'"spike" 特指突然的大幅上涨，比 "increase" 更能传达异常感。对应词 "dip" 表示突然下跌。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'Let me ___ in the marketing team since this touches their area.',
+    sub:'选出正确的词填入空白处',
+    correct:'loop', wrong:['bring','call','invite'],
+    explain:'"loop in someone" = 把某人加入沟通循环，是职场英语中非常地道的表达。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'One ___ here is that the sample size is relatively small.',
+    sub:'选出正确的词填入空白处',
+    correct:'caveat', wrong:['problem','issue','concern'],
+    explain:'"caveat" 表示"注意事项/局限性"，是 DA 在提醒数据局限时最专业的词。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'The key ___ here is that users who complete onboarding have 3x higher retention.',
+    sub:'选出正确的词填入空白处',
+    correct:'takeaway', wrong:['finding','result','number'],
+    explain:'"takeaway" 指听完后带走的核心结论，是汇报场景中最重要的词之一。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'Usage is heavily ___ toward power users.',
+    sub:'选出正确的词填入空白处',
+    correct:'skewed', wrong:['focused','pushed','directed'],
+    explain:'"skewed" 表示数据分布偏斜，是统计语境中描述不均匀分布的精准用词。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'This could be ___ to the holiday season.',
+    sub:'选出正确的词填入空白处',
+    correct:'attributed', wrong:['caused','related','connected'],
+    explain:'"attributed to" 比 "because of" 更严谨，暗示这是合理推测而非确定结论。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'Growth has ___ over the last six weeks.',
+    sub:'选出正确的词填入空白处',
+    correct:'plateaued', wrong:['stopped','slowed','leveled'],
+    explain:'"plateaued" 特指增长趋势变平稳/停滞，是描述增长放缓最精准的词。' },
+  { type:'blank', badge:'句子填空',
+    prompt:"Is this time-sensitive, or do I have a few days to ___ this around?",
+    sub:'选出正确的词填入空白处',
+    correct:'turn', wrong:['get','wrap','send'],
+    explain:'"turn this around" = 完成并交付某项工作，是非常口语化的职场表达。' },
+  { type:'blank', badge:'句子填空',
+    prompt:'The data ___ moving forward with the A/B test on the checkout flow.',
+    sub:'选出正确的词填入空白处',
+    correct:'supports', wrong:['shows','says','proves'],
+    explain:'"the data supports" 是用数据为决策背书的标准说法，比 "the data says" 更专业。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何在汇报中交代背景信息，让听众理解分析的来龙去脉？',
+    correct:'To give you some context, [background].',
+    wrong:['Let me walk you through what we found.',"Now let's shift to the next topic.","I'd love to get everyone's thoughts on the next steps."],
+    explain:'"To give you some context" 是向听众提供背景的标准开场，帮他们在听结论前先理解分析框架。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何礼貌地在汇报中途确认大家有没有疑问？',
+    correct:'Before I move on, does anyone have questions on this?',
+    wrong:["What's the main decision you're trying to make with this data?",'Should we segment this by user type?','Can we get on a quick call to sync on this?'],
+    explain:'这句话在汇报中暂停确认，给听众提问空间，避免他们带着疑问听完全程却没机会说出来。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何表达某指标与上季度相比下降了 12%？',
+    correct:"We're seeing a 12% decrease compared to last quarter.",
+    wrong:['The metric has plateaued over the last six weeks.',"There's a significant spike in the data.",'Usage is heavily skewed toward power users.'],
+    explain:'"We\'re seeing a X% decrease/increase compared to..." 是同比/环比表达的标准句型，简洁又专业。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何建议在做决策之前先做更深入的调查？',
+    correct:"I think it's worth doing a deeper investigation into [area] before we decide.",
+    wrong:['The data supports moving forward with this initiative.','My suggestion would be to revisit in two weeks.',"Based on the analysis, I'd recommend we focus on retention."],
+    explain:'这句话帮你在数据不够充分时为决策踩刹车，展示你严谨的分析态度。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何告诉相关团队，某个发现可能需要他们关注？',
+    correct:'This might be worth flagging to the product team.',
+    wrong:['Let me loop in the team on this.',"I'll send over the analysis once ready.",'Can we get on a quick call to sync?'],
+    explain:'"worth flagging" 表示"值得提出来引起注意"，语气温和，不会给对方施压。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何解释某个增长峰值可能是活动驱动而非自然增长？',
+    correct:"The spike aligns with the campaign, so it's likely not organic.",
+    wrong:["We'd need more data points to confirm this pattern.",'One caveat is that the sample size is small.','The data is mixed on this.'],
+    explain:'"not organic" 是区分自然增长和活动驱动增长的关键词，是 DA 日常分析中的高频说法。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何通过量化商业影响，让 stakeholder 更重视你的分析建议？',
+    correct:"If we can improve retention by 5%, that translates to $200K in additional revenue.",
+    wrong:["Based on the analysis, I'd recommend we focus on onboarding.",'The data supports moving forward.',"My suggestion would be to run a pilot and revisit."],
+    explain:'"translates to" 把指标改善转化成业务影响，是让非技术 stakeholder 理解数据价值的最有效方式。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何描述两个指标之间可能存在的关系？',
+    correct:'There seems to be a correlation between X and Y.',
+    wrong:['Usage is heavily skewed toward power users.','The data shows a downward trend over the past month.',"There's a significant spike in this metric."],
+    explain:'"there seems to be a correlation" 用了 "seems to be" 表示推测，比直接说 "there is" 更严谨。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何确认这次分析需求的紧急程度？',
+    correct:"Is this time-sensitive, or do I have a few days to turn this around?",
+    wrong:['What timeframe are we looking at for the data?','What would a successful outcome look like for you?','Should we segment this by user type?'],
+    explain:'"time-sensitive" 表示时间紧迫，"turn this around" 表示完成交付——这句话帮你合理规划工作优先级。' },
+  { type:'match', badge:'中英配对',
+    prompt:'如何表达数据信号不明确，两个方向都有支持？',
+    correct:'The data is mixed on this — there are signals pointing in both directions.',
+    wrong:["I'd be cautious about drawing conclusions from this alone.",'One caveat is that the sample size is relatively small.',"We'd need more data points to confirm this."],
+    explain:'"the data is mixed" = 数据结论不明朗，这是在数据无法给出清晰答案时最诚实的表达。' }
+];
+
+// ── Game State ────────────────────────────────
+let G = { sessionRound: 0, qIndex: 0, score: 0, answers: [], queue: [] };
+
+function seed(n) {
+  const d = new Date();
+  return (d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate()) * 100 + n;
+}
+
+function shuffle(arr, s) {
+  const a = [...arr]; let r = s;
+  for (let i = a.length-1; i > 0; i--) {
+    r = (r * 1664525 + 1013904223) & 0x7fffffff;
+    const j = r % (i+1); [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQueue() {
+  return shuffle(Q, seed(G.sessionRound)).slice(0, 5);
+}
+
+function buildOpts(q) {
+  return shuffle([q.correct, ...q.wrong], seed(G.sessionRound * 100 + G.qIndex + 7));
+}
+
+// ── Streak ────────────────────────────────────
+function getStreak() {
+  try {
+    const d = JSON.parse(localStorage.getItem('da_streak') || '{}');
+    const today = new Date().toDateString();
+    const yest = new Date(Date.now()-86400000).toDateString();
+    if (d.lastDate === today) return d.count || 0;
+    if (d.lastDate === yest) return d.count || 0;
+    return 0;
+  } catch { return 0; }
+}
+
+function markToday() {
+  try {
+    const d = JSON.parse(localStorage.getItem('da_streak') || '{}');
+    const today = new Date().toDateString();
+    if (d.lastDate === today) return;
+    const yest = new Date(Date.now()-86400000).toDateString();
+    const count = d.lastDate === yest ? (d.count || 0) + 1 : 1;
+    localStorage.setItem('da_streak', JSON.stringify({ lastDate: today, count }));
+  } catch {}
+}
+
+// ── Screens ───────────────────────────────────
+function initGameScreen() {
+  document.getElementById('streak-num').textContent = getStreak();
+  updateMistakeBadge();
+  showStart();
+}
+
+function showStart() {
+  document.getElementById('game-start').style.display = 'block';
+  document.getElementById('game-question').style.display = 'none';
+  document.getElementById('game-result').style.display = 'none';
+}
+
+function startGame() { G.sessionRound = 0; beginRound(); }
+function playMore()  { G.sessionRound++;   beginRound(); }
+
+function beginRound() {
+  G.qIndex = 0; G.score = 0; G.answers = [];
+  G.queue = buildQueue();
+  document.getElementById('game-start').style.display = 'none';
+  document.getElementById('game-result').style.display = 'none';
+  document.getElementById('game-question').style.display = 'block';
+  renderQ();
+}
+
+function renderQ() {
+  const q = G.queue[G.qIndex];
+  const opts = buildOpts(q);
+
+  document.getElementById('q-progress').textContent = `第 ${G.qIndex+1} 题 / 5`;
+  document.getElementById('q-score-live').textContent = `✓ ${G.score}`;
+  document.getElementById('q-progress-fill').style.width = (G.qIndex/5*100) + '%';
+
+  const wrap = document.getElementById('q-type-wrap');
+  wrap.className = `type-${q.type}`;
+  document.getElementById('q-type-badge').textContent = q.badge;
+  document.getElementById('q-prompt').textContent = q.prompt;
+  document.getElementById('q-sub').textContent = q.sub || (
+    q.type==='scenario' ? '以下哪句英语表达最适合这个场景？' : '选出对应的英文表达'
+  );
+
+  const container = document.getElementById('q-options');
+  container.innerHTML = '';
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAns(opt, q.correct, q.explain);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('feedback-box').style.display = 'none';
+  document.getElementById('next-btn-wrap').classList.add('hidden');
+}
+
+function selectAns(chosen, correct, explain) {
+  const ok = chosen === correct;
+  if (ok) G.score++;
+  else saveMistake(G.queue[G.qIndex], chosen);
+
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === correct) b.classList.add('correct');
+    else if (b.textContent === chosen && !ok) b.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedback-box');
+  fb.style.display = 'block';
+  fb.className = `feedback-box ${ok ? 'correct' : 'wrong'}`;
+  document.getElementById('feedback-icon').textContent = ok ? '✅' : '❌';
+  document.getElementById('feedback-title').textContent = ok ? '答对了！' : '答错了';
+  document.getElementById('feedback-explain').textContent = explain;
+
+  const ca = document.getElementById('feedback-correct-ans');
+  if (!ok) { ca.classList.remove('hidden'); ca.textContent = `正确答案：「${correct}」`; }
+  else ca.classList.add('hidden');
+
+  G.answers.push({ prompt: document.getElementById('q-prompt').textContent, correct, chosen, ok });
+  document.getElementById('q-score-live').textContent = `✓ ${G.score}`;
+  document.getElementById('next-btn-wrap').classList.remove('hidden');
+}
+
+function nextQuestion() {
+  G.qIndex++;
+  if (G.qIndex >= 5) showResult();
+  else renderQ();
+}
+
+function showResult() {
+  markToday();
+  document.getElementById('streak-num').textContent = getStreak();
+  document.getElementById('game-question').style.display = 'none';
+  document.getElementById('game-result').style.display = 'block';
+
+  const s = G.score;
+  document.getElementById('result-score').textContent = s;
+  const ring = document.getElementById('score-ring');
+  ring.className = 'score-ring ' + (s===5?'score-5':s===4?'score-4':s===3?'score-3':'score-low');
+
+  const titles = ['再接再厉！','继续加油！','不错！','很棒！','完美！🎉'];
+  const subs   = [
+    '别灰心，这些表达多练几次就熟了，试试「再来 5 题」！',
+    '已经掌握了一些了，继续巩固！',
+    '基础不错，再多练习 presentation 场景！',
+    '掌握得很好！试试再来 5 题挑战更多表达。',
+    '全对！你已经很熟练这些表达了 🏆'
+  ];
+  document.getElementById('result-title').textContent = titles[s];
+  document.getElementById('result-sub').textContent   = subs[s];
+
+  const review = document.getElementById('answer-review');
+  review.innerHTML = '<h3>本轮回顾</h3>';
+  G.answers.forEach(a => {
+    const q = a.prompt.length > 55 ? a.prompt.slice(0,55)+'…' : a.prompt;
+    review.innerHTML += `<div class="review-item">
+      <div class="review-icon">${a.ok?'✅':'❌'}</div>
+      <div><div class="review-q">${q}</div><div class="review-a">${a.correct}</div></div>
+    </div>`;
+  });
+}
+</script>
+</body>
+</html>
