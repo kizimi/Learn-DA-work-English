@@ -230,6 +230,130 @@
     .clear-all-btn:hover { border-color: var(--red); color: var(--red); }
     .nav-badge.mistake-badge { background: var(--red-light); color: var(--red); }
 
+    /* ── Dynamic Banner ── */
+    .banner-top { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
+    .banner-month { font-size: 13px; opacity: 0.75; }
+    .banner-emoji { font-size: 28px; }
+    .banner-en { font-size: 13px; opacity: 0.65; margin-top: 4px; font-style: italic; }
+
+    /* ── Got it button ── */
+    .got-it-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 14px; padding: 7px 16px;
+      background: var(--green-light); color: #14532D;
+      border: 1.5px solid #BBF7D0; border-radius: 99px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.2s;
+    }
+    .got-it-btn:hover:not(.done) { background: #BBF7D0; transform: scale(1.03); }
+    .got-it-btn.done { background: var(--bg); color: var(--text-secondary); border-color: var(--border); cursor: default; font-weight: 400; }
+
+    /* ── Learned card ── */
+    .card-learned {
+      opacity: 0.35; max-height: 56px; overflow: hidden;
+      transition: all 0.4s ease; cursor: pointer;
+      border-style: dashed;
+    }
+    .card-learned:hover { opacity: 0.6; }
+    .card-learned::before { content: '✓ 已掌握 — 点击展开'; display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+
+    /* ── Tab progress ── */
+    .tab-prog-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .tab-prog-bar { flex: 1; background: var(--border); border-radius: 99px; height: 5px; overflow: hidden; }
+    .tab-prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), #16A34A); border-radius: 99px; transition: width 0.5s; }
+    .tab-prog-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+
+    /* ── Completion toast ── */
+    .completion-toast {
+      position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+      z-index: 200; transition: bottom 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      width: min(440px, 92vw);
+    }
+    .completion-toast.show { bottom: 24px; }
+    .toast-inner {
+      background: white; border: 1px solid var(--border); border-radius: 16px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .toast-emoji { font-size: 24px; flex-shrink: 0; }
+    .toast-text { flex: 1; font-size: 13px; line-height: 1.4; }
+    .toast-text strong { display: block; color: var(--text); }
+    .toast-text span { color: var(--text-secondary); }
+    .toast-btn { background: var(--primary); color: white; border: none; border-radius: 99px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; font-family: inherit; }
+    .toast-close { background: none; border: none; color: var(--text-secondary); font-size: 18px; cursor: pointer; padding: 4px 6px; line-height: 1; }
+
+    /* ── Badge Modal ── */
+    .badge-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+    .badge-modal.show { opacity: 1; }
+    .badge-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+    .badge-content {
+      position: relative; background: white; border-radius: 24px;
+      padding: 36px 32px; text-align: center; max-width: 360px; width: 90%;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+      transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .badge-modal.show .badge-content { transform: scale(1); }
+    .badge-fireworks { font-size: 40px; margin-bottom: 8px; animation: bob 1.5s ease-in-out infinite; }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .badge-content h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .badge-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .badge-card {
+      width: 160px; height: 160px; margin: 16px auto;
+      perspective: 800px; cursor: pointer;
+    }
+    .badge-card-inner {
+      width: 100%; height: 100%; position: relative;
+      transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .badge-card.flipped .badge-card-inner { transform: rotateY(180deg); }
+    .badge-front, .badge-back {
+      position: absolute; inset: 0; border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    }
+    .badge-front {
+      background: linear-gradient(135deg, #4F6EF7, #7C3AED);
+      font-size: 64px; box-shadow: 0 8px 24px rgba(79,110,247,0.3);
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge { 0%,100%{box-shadow:0 8px 24px rgba(79,110,247,0.3)} 50%{box-shadow:0 12px 32px rgba(79,110,247,0.5)} }
+    .badge-back {
+      background: linear-gradient(135deg, #F97316, #EAB308);
+      transform: rotateY(180deg); padding: 16px; gap: 6px;
+      box-shadow: 0 8px 24px rgba(249,115,22,0.3);
+    }
+    .badge-emoji { font-size: 40px; }
+    .badge-name { font-size: 15px; font-weight: 700; color: white; }
+    .badge-desc { font-size: 11px; color: rgba(255,255,255,0.85); text-align: center; line-height: 1.4; }
+    .badge-tap-hint { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
+    .badge-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+
+    /* ── Combo popup ── */
+    .combo-popup {
+      position: fixed; top: 30%; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #F97316, #EAB308);
+      color: white; font-size: 22px; font-weight: 800;
+      padding: 10px 28px; border-radius: 99px;
+      box-shadow: 0 8px 24px rgba(249,115,22,0.4);
+      animation: combo-anim 1.1s ease forwards; pointer-events: none; z-index: 400;
+    }
+    @keyframes combo-anim {
+      0%   { opacity:0; transform:translateX(-50%) scale(0.5) translateY(10px); }
+      20%  { opacity:1; transform:translateX(-50%) scale(1.15) translateY(-4px); }
+      60%  { opacity:1; transform:translateX(-50%) scale(1) translateY(0); }
+      100% { opacity:0; transform:translateX(-50%) scale(0.9) translateY(-20px); }
+    }
+
+    /* ── Confetti ── */
+    .confetti-piece {
+      position: fixed; top: -10px; pointer-events: none; z-index: 500;
+      animation: confetti-fall linear forwards;
+    }
+    @keyframes confetti-fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity:1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
+    }
+
     footer { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 13px; border-top: 1px solid var(--border); }
 
     @media (max-width: 600px) {
@@ -243,8 +367,13 @@
 <body>
 
 <header>
+  <div class="banner-top">
+    <span class="banner-emoji" id="banner-emoji">☀️</span>
+    <span class="banner-month" id="banner-month">5月</span>
+  </div>
   <h1>DA English 📊</h1>
-  <p>Data Analyst 国际团队英语口语手册</p>
+  <p id="banner-sub">Data Analyst 国际团队英语口语手册</p>
+  <p class="banner-en" id="banner-en">Keep showing up. Keep leveling up.</p>
   <div class="header-tags">
     <span class="header-tag">🗣️ 日常沟通</span>
     <span class="header-tag">📈 Presentation</span>
@@ -1231,8 +1360,8 @@ function renderQ() {
 
 function selectAns(chosen, correct, explain) {
   const ok = chosen === correct;
-  if (ok) G.score++;
-  else saveMistake(G.queue[G.qIndex], chosen);
+  if (ok) { G.score++; comboCount++; if (comboCount >= 2) showCombo(comboCount); }
+  else { comboCount = 0; saveMistake(G.queue[G.qIndex], chosen); }
 
   document.querySelectorAll('.option-btn').forEach(b => {
     b.disabled = true;
@@ -1284,6 +1413,8 @@ function showResult() {
   document.getElementById('result-title').textContent = titles[s];
   document.getElementById('result-sub').textContent   = subs[s];
 
+  if (s === 5) showConfetti();
+
   const review = document.getElementById('answer-review');
   review.innerHTML = '<h3>本轮回顾</h3>';
   G.answers.forEach(a => {
@@ -1294,6 +1425,245 @@ function showResult() {
     </div>`;
   });
 }
+
+// ── Dynamic Banner ────────────────────────────
+const MONTH_THEMES = [
+  { emoji:'❄️',  sub:'新年新开始，英语新征程！',              en:'A new year, a new voice.' },
+  { emoji:'🧧',  sub:'春节快乐，职场英语也要红红火火！',      en:'Speak up in the new year.' },
+  { emoji:'🌸',  sub:'万物复苏，职场英语也在生长中',          en:'Grow your professional voice.' },
+  { emoji:'🌿',  sub:'清明时节，数据说话要清晰有力',          en:'Make every word count.' },
+  { emoji:'☀️',  sub:'劳动节精神——持续学习，不懈精进',       en:'Keep showing up. Keep leveling up.' },
+  { emoji:'🌊',  sub:'夏日来临，用英语驾驭每一场会议',        en:'Own the room. Own the data.' },
+  { emoji:'🏖️',  sub:'暑气正浓，保持学习节奏不松懈',         en:'Stay sharp through summer.' },
+  { emoji:'🌻',  sub:'向日葵般朝气蓬勃，英语表达更自信',      en:'Confidence grows with practice.' },
+  { emoji:'🍂',  sub:'金秋丰收，汇报季英语准备好了吗',        en:'Q3 review season — be ready.' },
+  { emoji:'🎃',  sub:'年终冲刺，英语表达要有力量',            en:'Sprint to year-end with impact.' },
+  { emoji:'🍁',  sub:'年底汇报季，数据故事讲得好了吗？',      en:'Tell your data story well.' },
+  { emoji:'🎄',  sub:'岁末回顾，为新的一年积蓄能量',          en:'Reflect, recharge, return stronger.' }
+];
+
+function initBanner() {
+  const t = MONTH_THEMES[new Date().getMonth()];
+  document.getElementById('banner-emoji').textContent = t.emoji;
+  document.getElementById('banner-month').textContent = (new Date().getMonth() + 1) + '月';
+  document.getElementById('banner-sub').textContent = t.sub;
+  document.getElementById('banner-en').textContent = t.en;
+}
+
+// ── Learned Cards ─────────────────────────────
+const MODULE_IDS = ['clarify','describe','collab','explain','present','decide'];
+const MOD_NAMES  = {clarify:'澄清需求',describe:'描述数据',collab:'跨团队协作',explain:'解释异常',present:'会议汇报',decide:'推动决策'};
+
+function loadLearned() {
+  try { return JSON.parse(localStorage.getItem('da_learned') || '[]'); } catch { return []; }
+}
+function saveLearned(list) {
+  try { localStorage.setItem('da_learned', JSON.stringify(list)); } catch {}
+}
+
+function initLearnedCards() {
+  const learned = loadLearned();
+  MODULE_IDS.forEach(mod => {
+    const section = document.getElementById(mod);
+    if (!section) return;
+    const cards = section.querySelectorAll('.card');
+
+    // Insert progress bar after section-header
+    const header = section.querySelector('.section-header');
+    if (header && !section.querySelector('.tab-prog-wrap')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'tab-prog-wrap';
+      wrap.innerHTML = `<div class="tab-prog-bar"><div class="tab-prog-fill" style="width:0%"></div></div><span class="tab-prog-label">0 / ${cards.length} 已掌握</span>`;
+      header.after(wrap);
+    }
+
+    cards.forEach((card, idx) => {
+      const id = `${mod}_${idx}`;
+      card.dataset.cardId = id;
+      const isDone = learned.includes(id);
+
+      const btn = document.createElement('button');
+      btn.className = 'got-it-btn' + (isDone ? ' done' : '');
+      btn.textContent = isDone ? '✓ 已掌握' : '✓ Got it';
+      btn.onclick = (e) => { e.stopPropagation(); markLearned(id, btn, card, mod, cards.length); };
+      card.appendChild(btn);
+
+      if (isDone) {
+        card.classList.add('card-learned');
+        card.onclick = () => card.classList.toggle('card-learned');
+      }
+    });
+    updateTabProgress(mod, cards.length);
+  });
+}
+
+function markLearned(id, btn, card, mod, total) {
+  const learned = loadLearned();
+  if (learned.includes(id)) return;
+  learned.push(id);
+  saveLearned(learned);
+
+  btn.textContent = '✓ 已掌握';
+  btn.classList.add('done');
+  setTimeout(() => {
+    card.classList.add('card-learned');
+    card.onclick = () => card.classList.toggle('card-learned');
+  }, 300);
+
+  updateTabProgress(mod, total);
+  checkTabComplete(mod, total, learned);
+}
+
+function updateTabProgress(mod, total) {
+  const learned = loadLearned();
+  const section = document.getElementById(mod);
+  if (!section) return;
+  const wrap = section.querySelector('.tab-prog-wrap');
+  if (!wrap) return;
+  const count = learned.filter(id => id.startsWith(mod + '_')).length;
+  wrap.querySelector('.tab-prog-fill').style.width = (count / total * 100) + '%';
+  wrap.querySelector('.tab-prog-label').textContent = `${count} / ${total} 已掌握`;
+}
+
+function checkTabComplete(mod, total, learned) {
+  const modCount = learned.filter(id => id.startsWith(mod + '_')).length;
+  if (modCount < total) return;
+
+  const allDone = MODULE_IDS.every(m => {
+    const s = document.getElementById(m);
+    if (!s) return false;
+    return learned.filter(id => id.startsWith(m + '_')).length >= s.querySelectorAll('.card').length;
+  });
+
+  if (allDone) {
+    setTimeout(showAllCompleteModal, 500);
+  } else {
+    const nextIdx = MODULE_IDS.indexOf(mod) + 1;
+    if (nextIdx < MODULE_IDS.length) showNextTabToast(mod, MODULE_IDS[nextIdx]);
+  }
+}
+
+function showNextTabToast(doneMod, nextMod) {
+  document.getElementById('toast-done-mod').textContent = MOD_NAMES[doneMod] || doneMod;
+  document.getElementById('toast-next-mod').textContent = MOD_NAMES[nextMod] || nextMod;
+  document.getElementById('toast-go-btn').onclick = () => goToModule(nextMod);
+  document.getElementById('completion-toast').classList.add('show');
+  setTimeout(dismissToast, 6000);
+}
+function dismissToast() {
+  document.getElementById('completion-toast').classList.remove('show');
+}
+function goToModule(mod) {
+  dismissToast();
+  const btn = document.querySelector(`.nav-btn[onclick*="'${mod}'"]`);
+  if (btn) btn.click();
+}
+
+// ── Badges ────────────────────────────────────
+const BADGES = [
+  { emoji:'🏆', name:'DA Champion',          desc:'掌握全部 48 个核心表达！' },
+  { emoji:'🌟', name:'Star Analyst',          desc:'用数据说话，用英语打动人' },
+  { emoji:'🎯', name:'Precision Speaker',     desc:'清晰、准确、有影响力' },
+  { emoji:'🚀', name:'Rocket Communicator',   desc:'你的英语表达已经起飞！' },
+  { emoji:'💎', name:'Diamond Storyteller',   desc:'数据故事，娓娓道来' },
+  { emoji:'🦁', name:'Confident Leader',      desc:'自信开口，引领对话' }
+];
+
+function showAllCompleteModal() {
+  const badge = BADGES[Math.floor(Math.random() * BADGES.length)];
+  document.getElementById('badge-front-emoji').textContent = '🎁';
+  document.getElementById('badge-back-emoji').textContent  = badge.emoji;
+  document.getElementById('badge-back-name').textContent   = badge.name;
+  document.getElementById('badge-back-desc').textContent   = badge.desc;
+  document.getElementById('badge-card-el').classList.remove('flipped');
+  const modal = document.getElementById('badge-modal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('show'), 10);
+}
+function flipBadge() { document.getElementById('badge-card-el').classList.toggle('flipped'); }
+function closeBadgeModal() {
+  const modal = document.getElementById('badge-modal');
+  modal.classList.remove('show');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
+}
+function resetAllLearned() {
+  try { localStorage.removeItem('da_learned'); } catch {}
+  closeBadgeModal();
+  location.reload();
+}
+
+// ── Combo ─────────────────────────────────────
+let comboCount = 0;
+function showCombo(n) {
+  const labels = ['','','🔥 连对 ×2！','🔥🔥 ×3 连击！','⚡ ×4 超级连击！','🎯 PERFECT ×5！'];
+  const el = document.createElement('div');
+  el.className = 'combo-popup';
+  el.textContent = n <= 5 ? labels[n] : `🔥 ×${n} 连击！`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+// ── Confetti ──────────────────────────────────
+function showConfetti() {
+  const colors = ['#4F6EF7','#F97316','#22C55E','#A855F7','#EAB308','#EF4444'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      const size = 6 + Math.random() * 6;
+      el.style.cssText = `left:${Math.random()*100}vw;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${1.5+Math.random()*1.5}s;animation-delay:${Math.random()*0.5}s`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 2500);
+    }, i * 20);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initBanner();
+  initLearnedCards();
+  updateMistakeBadge();
+});
 </script>
+
+<!-- Completion Toast -->
+<div class="completion-toast" id="completion-toast">
+  <div class="toast-inner">
+    <div class="toast-emoji">🎉</div>
+    <div class="toast-text">
+      <strong>「<span id="toast-done-mod"></span>」全部掌握！</strong>
+      <span>继续去学习「<span id="toast-next-mod"></span>」吧</span>
+    </div>
+    <button class="toast-btn" id="toast-go-btn" onclick="goToModule('')">去学习</button>
+    <button class="toast-close" onclick="dismissToast()">×</button>
+  </div>
+</div>
+
+<!-- Badge Modal -->
+<div class="badge-modal" id="badge-modal" style="display:none">
+  <div class="badge-overlay" onclick="closeBadgeModal()"></div>
+  <div class="badge-content">
+    <div class="badge-fireworks">🎊</div>
+    <h2>全部解锁！</h2>
+    <p class="badge-subtitle">48 个核心表达全部掌握，送你一枚盲盒徽章</p>
+    <p class="badge-tap-hint">点击徽章翻转查看</p>
+    <div class="badge-card" id="badge-card-el" onclick="flipBadge()">
+      <div class="badge-card-inner">
+        <div class="badge-front">
+          <span id="badge-front-emoji">🎁</span>
+        </div>
+        <div class="badge-back">
+          <span class="badge-emoji" id="badge-back-emoji">🏆</span>
+          <span class="badge-name" id="badge-back-name">DA Champion</span>
+          <span class="badge-desc" id="badge-back-desc">掌握全部 48 个核心表达！</span>
+        </div>
+      </div>
+    </div>
+    <div class="badge-actions">
+      <button class="btn btn-primary btn-sm" onclick="closeBadgeModal()">太棒了！</button>
+      <button class="btn btn-outline btn-sm" onclick="resetAllLearned()">重新学习</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
